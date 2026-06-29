@@ -35,6 +35,10 @@ def generate_events(
     attention_status,
 
     is_drowsy,
+    is_yawning,
+    is_talking,
+    phone_detected,
+    emergency_mode,
 
     looking_away,
 
@@ -79,6 +83,25 @@ def generate_events(
                 "critical",
         )
     )
+        
+        
+    #yawning
+    if is_yawning:
+        events.append(
+            AIEvent(
+            type="Yawning Detected",
+            severity="warning"
+        )
+    )
+        
+    if is_talking:
+        events.append(
+            AIEvent(
+                type="Talking Detected",
+                severity="info"
+        )
+    )
+        
 
     # Driver distracted
     if (
@@ -125,6 +148,23 @@ def generate_events(
             AIEvent(
                 type="Unstable Attention",
                 severity="info",
+            )
+        )
+        
+    #phone usage
+    if phone_detected:
+        events.append(
+            AIEvent(
+            type="Phone Usage Detected",
+            severity="critical"
+        )
+    )
+        
+    if emergency_mode:
+        events.append(
+            AIEvent(
+                type="Emergency Intervention",
+                severity="critical"
             )
         )
 
